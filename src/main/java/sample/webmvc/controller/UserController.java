@@ -6,19 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 
+	// WEB-INF/JSP/Welcome.jsp
+	
 	@RequestMapping("/")
-//	@GetMapping("/")
 	public String greet() {
-		return "Welcome.jsp";
+		System.out.println("welcome run");
+		return "Welcome";
 	}
 	
 	@RequestMapping("/movies")
 	public String movies() {
-		return "Movies.jsp";
+		System.out.println("movie run");
+		return "Movies";
 	}
 	
 	@RequestMapping("/short")
 	public String moviesshort() {
-		return "short.jsp";
+		System.out.println("short run");
+		return "short";
 	}
 }
