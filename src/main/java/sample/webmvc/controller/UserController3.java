@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/kitchen")
-public class UserController {
+@RequestMapping("/electronics")
+public class UserController3 {
 
 	// WEB-INF/JSP/Welcome.jsp
 	
@@ -16,7 +16,7 @@ public class UserController {
 	public String greet() {
 		System.out.println("welcome run");
 //		return "Welcome";
-		return "kitchen";
+		return "electronics";
 	}
 	
 //	@RequestMapping("/movies")
