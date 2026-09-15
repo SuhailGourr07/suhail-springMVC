@@ -16,7 +16,7 @@ public class SpringConfiguration implements WebMvcConfigurer{
 		//it specifies that JSTL views should be used.
 		//JstlView is a class provided by the spring framework that is specifically designed to handle JPS Pages using JSTL.
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/JSP");
+		viewResolver.setPrefix("/WEB-INF/JSP/");
 		viewResolver.setSuffix(".jsp");
 		
 		return viewResolver;
