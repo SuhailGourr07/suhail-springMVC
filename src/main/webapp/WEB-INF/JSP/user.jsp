@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Login</title>
 </head>
-<body bgColor="green">
-<h1>welcome to spring mvc project</h1>
-<h2>Hello user this is your name : ${user} </h2>
+<body bgColor='brown'>
+<h1>Hello user this is your profile</h1>
+<h2>user id : ${id} </h2>
+
 </body>
 </html>
