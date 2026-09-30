@@ -71,4 +71,31 @@ public class UserController {
 		
 		return "success";
 	}
+	
+	@GetMapping("/get-user/{id}")
+	public String getUser(@PathVariable(name = "id") int id, Model model) {
+		System.out.println("userDetails controller : " + id);
+	   User user = userService.getUser(id);
+	   if(user == null) {
+		   model.addAttribute("message", "User not found with id: " + id);
+		   return "userNotFound";
+	   }
+	   model.addAttribute("user", user);
+		return "userDetail";
+	}
+	
+	@PostMapping("/update-user/{id}")
+	public String updateUser(@PathVariable(name = "id") int id,@RequestParam(name = "name") String name, @RequestParam(name = "gender") String gender, @RequestParam(name = "address") String address,Model model) {
+		
+		
+	   boolean updated = userService.updateUser(id,name,gender,address);
+	   
+	   if(!updated) {
+		   model.addAttribute("message", "User not found with id: " + id);
+		   return "userNotFound";
+	   }
+//	   model.addAttribute("user", user);
+		
+		return "redirect:/get-user/"+id;
+	}
 }

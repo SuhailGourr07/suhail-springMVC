@@ -22,4 +22,28 @@ public class UserService {
 	public void saveUser(User user) {
 		userDao.saveUser(user);
 	}
-}
+
+	public User getUser(int id) {
+		User user = userDao.getUser(id);
+		if(user == null) {
+			System.out.println("User not found with " + id);
+			return null;
+		}
+		return user;
+	}
+	
+	
+	public boolean updateUser(int id,String name,String gender,String address)
+	{
+	User user = userDao.getUser(id);
+	if(user == null) {
+		return false;
+	}
+	user.setName(name);
+	user.setGender(gender);
+	user.setAddress(address);
+	
+	userDao.updateUser(user);
+	return true;
+	}
+	}

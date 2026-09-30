@@ -24,4 +24,12 @@ public class UserDao {
 		System.out.println("hibernateTemplate called");
 	}
 
+	public User getUser(int id) {
+		return hibernateTemplate.get(User.class, id);
+	}
+	
+	public void updateUser(User user) {
+		hibernateTemplate.update(user);
+	}
+
 }
