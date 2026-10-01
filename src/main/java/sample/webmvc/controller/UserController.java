@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,11 +60,10 @@ public class UserController {
 	
 	
 	@PostMapping("/sign-up")
-	public String userSignUp(@RequestParam(name = "name") String name, @RequestParam(name = "gender") String gender, @RequestParam(name = "address") String address, Model model){	
-		System.out.println("UserController.userLogin : "+name);
-		System.out.println("UserController.userLogin : "+gender);
+	public String userSignUp(@ModelAttribute User user, Model model){	
 		
-		User user = new User(name,gender,address);
+		System.out.println("signup controller");
+		System.out.println(user);
 		
 		userService.saveUser(user);
 		
@@ -71,6 +71,20 @@ public class UserController {
 		
 		return "success";
 	}
+	
+//	@PostMapping("/sign-up")
+//	public String userSignUp(@RequestParam(name = "name") String name, @RequestParam(name = "gender") String gender, @RequestParam(name = "address") String address, Model model){	
+//		System.out.println("UserController.userLogin : "+name);
+//		System.out.println("UserController.userLogin : "+gender);
+//		
+//		User user = new User(name,gender,address);
+//		
+//		userService.saveUser(user);
+//		
+//		model.addAttribute("user", user);
+//		
+//		return "success";
+//	}
 	
 	@GetMapping("/get-user/{id}")
 	public String getUser(@PathVariable(name = "id") int id, Model model) {
