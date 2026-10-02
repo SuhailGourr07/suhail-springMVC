@@ -27,9 +27,12 @@ public class UserDao {
 	public User getUser(int id) {
 		return hibernateTemplate.get(User.class, id);
 	}
-	
-	public void updateUser(User user) {
-		hibernateTemplate.update(user);
-	}
 
+	public void deleteUser(int id) {
+
+		User user = hibernateTemplate.get(User.class, id);
+		
+		hibernateTemplate.delete(user);
+	}
+	
 }
