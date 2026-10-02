@@ -2,13 +2,11 @@ package sample.webmvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sample.webmvc.entity.User;
@@ -31,66 +29,20 @@ public class UserController {
 		return "welcome";
 	}
 	
-	@GetMapping("/path/{id}")
-	public String pathVarible(@PathVariable(name =  "id") int id, Model model) {
-		System.out.println("pathVarible controller :" + id);	
-		model.addAttribute("id", id);
-		return "user";
-	}
 	
-	@GetMapping("/login")
-	public String login() {
-		System.out.println("login controller :");	
-		return "login";
-	}
-	
-	@PostMapping("/login")
-	public String userLogin(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, Model model) {
-		System.out.println("userLogin controller : " + username);
-		System.out.println("userLogin controller : " + password);
-			
-		model.addAttribute("username", username);
-		model.addAttribute("password", password);
-		return "profile";
-	}
-	
-	@GetMapping("/sign-up")
-	public String signup() {
-		System.out.println("sign-up controller :");	
-		return "sign-up";
-	}
-	
-	
-	@PostMapping("/sign-up")
-	public String userSignUp(@ModelAttribute User user, Model model){	
+	@PostMapping("/save-user")
+	@ResponseBody
+	public User userSignUp(@RequestBody User user){	
 		
-		System.out.println("signup controller");
+		System.out.println("save controller");
 		System.out.println(user);
 		
-		userService.saveUser(user);
-		
-		model.addAttribute("user", user);
-		
-		return "success";
+		return userService.saveUser(user);
 	}
-	
-//	@PostMapping("/sign-up")
-//	public String userSignUp(@RequestParam(name = "name") String name, @RequestParam(name = "gender") String gender, @RequestParam(name = "address") String address, Model model){	
-//		System.out.println("UserController.userLogin : "+name);
-//		System.out.println("UserController.userLogin : "+gender);
-//		
-//		User user = new User(name,gender,address);
-//		
-//		userService.saveUser(user);
-//		
-//		model.addAttribute("user", user);
-//		
-//		return "success";
-//	}
 	
 	@GetMapping("/get-user/{id}")
 	@ResponseBody
-	public User getUser(@PathVariable(name = "id") int id, Model model) {
+	public User getUser(@PathVariable(name = "id") int id) {
 		System.out.println("userDetails controller : " + id);
 	   return userService.getUser(id); 
 	}

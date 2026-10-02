@@ -1,5 +1,7 @@
 package sample.webmvc.dao;
 
+import java.io.Serializable;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,11 @@ public class UserDao {
 	}
 
 	@Transactional
-	public void saveUser(User user) {
-		hibernateTemplate.save(user);
+	public User saveUser(User user) {
 		System.out.println("hibernateTemplate called");
+		 hibernateTemplate.save(user);
+		 return user;
+		
 	}
 
 	public User getUser(int id) {
