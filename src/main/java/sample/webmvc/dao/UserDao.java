@@ -1,7 +1,5 @@
 package sample.webmvc.dao;
 
-import java.io.Serializable;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +30,16 @@ public class UserDao {
 		return hibernateTemplate.get(User.class, id);
 	}
 
+	
 	public void deleteUser(int id) {
-
 		User user = hibernateTemplate.get(User.class, id);
-		
 		hibernateTemplate.delete(user);
+	}
+	
+
+	public void updateUser(User user) {
+		System.out.println("hibernateTemplate called");
+		hibernateTemplate.update(user);
 	}
 	
 }

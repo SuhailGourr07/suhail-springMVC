@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,7 +33,7 @@ public class UserController {
 	
 	@PostMapping("/save-user")
 	@ResponseBody
-	public User userSignUp(@RequestBody User user){	
+	public User save(@RequestBody User user){	
 		
 		System.out.println("save controller");
 		System.out.println(user);
@@ -56,7 +57,20 @@ public class UserController {
 		
 		userService.deleteUser(id);
 		
-		return "User Deleted Successfully!";
+		return "User Deleted Successfully!";	
+	}
+	
+	
+	@PutMapping("/update-user/{id}")
+	@ResponseBody
+	public String updateUser(@PathVariable(name="id") int id, @RequestBody User user) {
 		
+		System.out.println("userUpdate controller : " + id);
+		
+		user.setId(id);
+		
+		 userService.updateUser(user);
+		 
+		 return "user updated successfully";
 	}
 }
