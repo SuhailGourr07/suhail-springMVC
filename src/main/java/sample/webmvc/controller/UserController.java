@@ -1,6 +1,8 @@
 package sample.webmvc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,66 +13,75 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import sample.webmvc.entity.User;
-import sample.webmvc.service.UserService;
 
 @Controller
+@ResponseBody
 public class UserController {
 	
-	@Autowired
-	UserService userService;
 	
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	static Map<Integer,User> users = new HashMap<>();
+	
+	static {
+		users.put(1, new User(1,"suhail","Male","Delhi"));
+		users.put(2, new User(2,"jeff","Male","Noida"));
+		users.put(3, new User(3,"keff","Male","Gurgaon"));
+		users.put(4, new User(4,"suahil gour","Male","Delhi"));
 	}
 	
-	@GetMapping("/")
-	//@RequestParam can read Query parameter.
-	public String header() {
+	
+	@GetMapping
+	public User header() {
 		System.out.println("user controller :");
-		return "welcome";
+		return new User(99,"Dummy","ptani","Not Found");
 	}
 	
 	
 	@PostMapping("/save-user")
-	@ResponseBody
 	public User save(@RequestBody User user){	
-		
 		System.out.println("save controller");
 		System.out.println(user);
-		
-		return userService.saveUser(user);
+		users.put(user.getId(), user);
+		return user;
 	}
 	
 	@GetMapping("/get-user/{id}")
-	@ResponseBody
 	public User getUser(@PathVariable(name = "id") int id) {
 		System.out.println("userDetails controller : " + id);
-	   return userService.getUser(id); 
+	   return users.get(id); 
+	}
+	
+	@GetMapping("/all-users")
+	public Map<Integer,User> getAllUsers() {
+		System.out.println("userDetails controller : ");
+	   return users; 
 	}
 	
 	
 	@DeleteMapping("/delete-user/{id}")
-	@ResponseBody
 	public String deleteUser(@PathVariable (name = "id") int id) {
 		
 		System.out.println("userDelete controller : " + id);
 		
-		userService.deleteUser(id);
-		
-		return "User Deleted Successfully!";	
+		users.remove(id);
+		return "User deleted successfully";
 	}
 	
 	
 	@PutMapping("/update-user/{id}")
-	@ResponseBody
-	public String updateUser(@PathVariable(name="id") int id, @RequestBody User user) {
+	public String updateUser(@PathVariable(name="id") int id, @RequestBody User updateUser) {
 		
 		System.out.println("userUpdate controller : " + id);
 		
-		user.setId(id);
-		
-		 userService.updateUser(user);
-		 
-		 return "user updated successfully";
+		User user = users.get(id);
+		if(user != null) {
+			user.setName(updateUser.getName());
+			user.setAddress(updateUser.getAddress());
+			
+			return "User updated Successfully";
+			
+		}
+		return "User Not Found";
 	}
+	
+
 }
